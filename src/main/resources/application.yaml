@@ -1,0 +1,29 @@
+quarkus:
+  native:
+    container-build: true
+    compression:
+      level: 6
+
+planner:
+  people:
+    -
+      name: A
+      hours: 100
+      unavailable: 1,5,13
+    -
+      name: H
+      hours: 0
+      unavailable: 1, 5, 13
+    -
+      name: M
+      hours: 0
+      unavailable: 1,15,3
+    -
+      name: P
+      hours: 0
+      unavailable: 17
+    -
+      name: T
+      hours: 0
+      unavailable:
+
