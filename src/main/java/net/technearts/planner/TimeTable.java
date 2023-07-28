@@ -1,4 +1,4 @@
-package net.technearts;
+package net.technearts.planner;
 
 import java.util.List;
 

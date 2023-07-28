@@ -1,4 +1,4 @@
-package net.technearts;
+package net.technearts.planner;
 
 import java.time.DayOfWeek;
 import java.time.MonthDay;
@@ -76,6 +76,6 @@ public class Timeslot {
 
     @Override
     public String toString() {
-        return "%s (%s) - %s - %sh".formatted(this.monthDay.getDayOfMonth(), this.dayOfWeek, this.person.getName(), this.getHours());
+        return "%s,%s,%s,%s".formatted(this.monthDay.getDayOfMonth(), this.dayOfWeek, this.person.getName(), this.getHours());
     }
 }

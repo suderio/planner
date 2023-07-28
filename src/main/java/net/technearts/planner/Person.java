@@ -1,4 +1,4 @@
-package net.technearts;
+package net.technearts.planner;
 
 import java.util.List;
 
@@ -6,17 +6,18 @@ public class Person {
 
     private String name;
     private Integer hours;
-
     private List<Integer> unavailable;
 
+    private List<Integer> preferred;
     public Person() {
 
     }
 
-    public Person(String name, Integer hours, List<Integer> unavailable) {
+    public Person(String name, Integer hours, List<Integer> unavailable, List<Integer> preferred) {
         this.name = name;
         this.hours = hours;
         this.unavailable = unavailable;
+        this.preferred = preferred;
     }
 
     public Integer getHours() {
@@ -41,6 +42,14 @@ public class Person {
 
     public void setUnavailable(List<Integer> unavailable) {
         this.unavailable = unavailable;
+    }
+
+    public List<Integer> getPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(List<Integer> preferred) {
+        this.preferred = preferred;
     }
 
     @Override

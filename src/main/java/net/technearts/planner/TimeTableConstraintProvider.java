@@ -1,4 +1,4 @@
-package net.technearts;
+package net.technearts.planner;
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.score.stream.Constraint;
@@ -45,6 +45,13 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .filter(t -> t.getPerson().getUnavailable().contains(t.getMonthDay().getDayOfMonth()))
                 .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("Unavailable Day Conflict");
+    }
+
+    Constraint preferredDay(ConstraintFactory constraintFactory) {
+        return constraintFactory.forEach(Timeslot.class)
+                .filter(t -> t.getPerson().getPreferred().contains(t.getMonthDay().getDayOfMonth()))
+                .reward(HardSoftScore.ONE_SOFT)
+                .asConstraint("Preferred Day Reward");
     }
 
     Constraint workingHours(ConstraintFactory constraintFactory) {
