@@ -2,15 +2,23 @@ package net.technearts.planner;
 
 import io.smallrye.config.ConfigMapping;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @ConfigMapping(prefix = "planner")
 public interface PlannerConfig {
+
+    List<Weight> weights();
     List<People> people();
     List<LocalDate> holidays();
 
+    interface Weight {
+        Optional<Map<DayOfWeek, Integer>> week();
+        Optional<Integer> holiday();
+    }
     interface People {
 
         String name();
