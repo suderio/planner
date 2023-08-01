@@ -1,6 +1,7 @@
 package net.technearts.planner;
 
 import io.quarkus.arc.log.LoggerName;
+import io.quarkus.picocli.runtime.annotations.TopCommand;
 import io.quarkus.runtime.configuration.ConfigurationException;
 import jakarta.inject.Inject;
 import org.jboss.logging.Logger;
@@ -13,7 +14,12 @@ import java.time.DateTimeException;
 import static java.lang.System.exit;
 import static java.util.regex.Pattern.matches;
 
-@Command(name = "planner", mixinStandardHelpOptions = true, abbreviateSynopsis = true, description = "A planner for monthly allocation.")
+@TopCommand
+@Command(name = "planner",
+        mixinStandardHelpOptions = true,
+        abbreviateSynopsis = true,
+        description = "A planner for monthly allocation.",
+        subcommands = {Config.class})
 public class Main implements Runnable {
 
     @Option(names = {"-l", "--limit"}, defaultValue = "5", description = "Time limit in seconds")
@@ -61,3 +67,4 @@ public class Main implements Runnable {
         }
     }
 }
+

@@ -1,9 +1,3 @@
-#quarkus:
-#  native:
-#    container-build: true
-#    compression:
-#      level: 6
-
 planner:
   weights:
     week:
@@ -17,23 +11,23 @@ planner:
     holiday: 24
   people:
     -
-      name: A
+      name: Asdrubal
       hours: 100
       unavailable: 1,5,13
     -
-      name: H
+      name: Hélio
       hours: 0
       unavailable: 1, 5, 13
     -
-      name: M
+      name: Mamede
       hours: 0
       unavailable: 1,15,3
     -
-      name: P
+      name: Procópio
       hours: 0
       unavailable: 17
     -
-      name: T
+      name: Temístocles
       hours: 0
       unavailable: []
       preferred: 1,3,5,7,9
