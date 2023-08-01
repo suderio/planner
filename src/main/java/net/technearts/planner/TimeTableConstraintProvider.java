@@ -19,7 +19,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 unavailableDay(constraintFactory),
                 workingHours(constraintFactory),
                 tooManyWorkingHours(constraintFactory),
-                tooManyWorkingDays(constraintFactory)
+                tooManyWorkingDays(constraintFactory),
+                preferredDay(constraintFactory)
                 };
     }
 
