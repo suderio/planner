@@ -11,12 +11,12 @@ import java.util.Optional;
 @ConfigMapping(prefix = "planner")
 public interface PlannerConfig {
 
-    List<Weight> weights();
+    Weight weights();
     List<People> people();
     List<LocalDate> holidays();
 
     interface Weight {
-        Optional<Map<DayOfWeek, Integer>> week();
+        Map<DayOfWeek, Integer> week();
         Optional<Integer> holiday();
     }
     interface People {

@@ -6,8 +6,8 @@ import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
 import org.optaplanner.core.api.score.stream.Joiners;
 
-import static org.optaplanner.core.api.score.stream.ConstraintCollectors.count;
-import static org.optaplanner.core.api.score.stream.ConstraintCollectors.sum;
+import static java.lang.Math.*;
+import static org.optaplanner.core.api.score.stream.ConstraintCollectors.*;
 import static org.optaplanner.core.api.score.stream.Joiners.equal;
 
 public class TimeTableConstraintProvider implements ConstraintProvider {
@@ -19,7 +19,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 unavailableDay(constraintFactory),
                 workingHours(constraintFactory),
                 tooManyWorkingHours(constraintFactory),
-                tooManyWorkingDays(constraintFactory)};
+                tooManyWorkingDays(constraintFactory)
+                };
     }
 
     Constraint dayConflict(ConstraintFactory constraintFactory) {
@@ -61,10 +62,17 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .asConstraint("workingHours");
     }
 
+//    Constraint tooManyWorkingHours(ConstraintFactory constraintFactory) {
+//        return constraintFactory.forEach(Timeslot.class)
+//                .groupBy(Timeslot::getPerson, sum(Timeslot::getWorkingHours))
+//                .penalize(HardSoftScore.ONE_SOFT, (person, hours) -> hours)
+//                .asConstraint("tooManyWorkingHours");
+//    }
+
     Constraint tooManyWorkingHours(ConstraintFactory constraintFactory) {
         return constraintFactory.forEach(Timeslot.class)
-                .groupBy(Timeslot::getPerson, sum(Timeslot::getWorkingHours))
-                .penalize(HardSoftScore.ONE_SOFT, (person, hours) -> hours)
+                .groupBy(Timeslot::getPerson, sum(Timeslot::getWorkingHours), average(Timeslot::getWorkingHours))
+                .penalize(HardSoftScore.ONE_SOFT, (person, sum, avg) -> toIntExact(round(abs(sum - avg))))
                 .asConstraint("tooManyWorkingHours");
     }
 

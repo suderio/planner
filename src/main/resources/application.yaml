@@ -18,23 +18,23 @@ planner:
   people:
     -
       name: A
-      hours: 100
+      hours: 77
       unavailable: 1,5,13
     -
       name: H
-      hours: 0
+      hours: 77
       unavailable: 1, 5, 13
     -
       name: M
-      hours: 0
+      hours: 107
       unavailable: 1,15,3
     -
       name: P
-      hours: 0
+      hours: 77
       unavailable: 17
     -
       name: T
-      hours: 0
+      hours: 107
       unavailable: []
       preferred: 1,3,5,7,9
   holidays:
