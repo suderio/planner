@@ -19,8 +19,8 @@ import static java.util.regex.Pattern.matches;
         mixinStandardHelpOptions = true,
         abbreviateSynopsis = true,
         description = "A planner for monthly allocation.",
-        subcommands = {Config.class})
-public class Main implements Runnable {
+        subcommands = {ConfigCommand.class})
+public class MainCommand implements Runnable {
 
     @Option(names = {"-l", "--limit"}, defaultValue = "5", description = "Time limit in seconds")
     Integer limit;
@@ -50,14 +50,19 @@ public class Main implements Runnable {
             Log.info("Number of people: %s".formatted(config.people().size()));
 
             // Get the solution
-            TimeTable solution = Util.getSolution(config.people(), monthYear, config.holidays(), limit);
+            Solver solver = new Solver(config.people(), config.holidays(), monthYear);
+            TimeTable solution = solver.solve(limit).getSolution();
 
             // Visualize the solution
             solution.getTimeslotList().forEach(System.out::println);
 
             // Visualize totals per person
             if (totals) {
-                solution.getPersonList().forEach(p -> System.out.printf("%s: %s%n", p.getName(), solution.getTimeslotList().stream().filter(t -> t.getPerson().equals(p)).mapToInt(Timeslot::getWorkingHours).sum()));
+                solver.getTotals().forEach((person, sum) -> System.out.printf("%s: %s%n", person.getName(), sum));
+/*                solution.getPersonList().forEach(p ->
+                        System.out.printf("%s: %s%n", p.getName(),
+                                solution.getTimeslotList().stream().filter(t ->
+                                        t.getPerson().equals(p)).mapToInt(Timeslot::getHours).sum() + p.getHours()));*/
             }
         } catch (IllegalArgumentException | DateTimeException e) {
             Log.error("Month/Year Parameter must be MM/YYYY, not %s".formatted(monthYear));

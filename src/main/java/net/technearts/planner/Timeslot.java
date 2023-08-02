@@ -70,7 +70,7 @@ public class Timeslot {
         return this.person.getHours() + this.getHours();
     }
 
-    private Integer getHours() {
+    public Integer getHours() {
         return this.getHolliday() || this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY ? 24 : 11;
     }
 
