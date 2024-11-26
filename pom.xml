@@ -3,19 +3,55 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.technearts</groupId>
-  <artifactId>planner</artifactId>
+  <artifactId>on-notice-planner</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <description>A planner app</description>
+  <name>on-notice-planner</name>
+  <description>An on notice planner app</description>
+  <url>https://suderio.github.io/${project.name}</url>
+  <organization>
+    <name>Technearts</name>
+    <url>https://www.technearts.net</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://raw.githubusercontent.com/suderio/${project.name}/net.technearts.planner.main/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>suderio</id>
+      <name>Paulo Suderio</name>
+      <email>paulo.suderio@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:http://github.com/suderio/${project.name}.git</connection>
+    <developerConnection>scm:git:https://github.com/suderio/${project.name}.git</developerConnection>
+    <url>https://github.com/suderio/${project.name}</url>
+  </scm>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/suderio/${project.name}/issues</url>
+  </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/suderio/${project.name}</url>
+    </repository>
+  </distributionManagement>
   <properties>
-    <compiler-plugin.version>3.11.0</compiler-plugin.version>
-    <maven.compiler.release>17</maven.compiler.release>
+    <compiler-plugin.version>3.13.0</compiler-plugin.version>
+    <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>3.2.2.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
-    <surefire-plugin.version>3.0.0</surefire-plugin.version>
+    <surefire-plugin.version>3.5.0</surefire-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -45,17 +81,17 @@
       <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.optaplanner</groupId>
-      <artifactId>optaplanner-quarkus</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-config-yaml</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>32.1.1-jre</version>
+      <version>33.3.1-jre</version>
+    </dependency>
+    <dependency>
+      <groupId>org.optaplanner</groupId>
+      <artifactId>optaplanner-quarkus</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
