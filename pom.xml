@@ -5,7 +5,7 @@
   <groupId>net.technearts</groupId>
   <artifactId>on-notice-planner</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>on-notice-planner</name>
+  <name>planner</name>
   <description>An on notice planner app</description>
   <url>https://suderio.github.io/${project.name}</url>
   <organization>
@@ -15,7 +15,7 @@
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>https://raw.githubusercontent.com/suderio/${project.name}/net.technearts.planner.main/LICENSE</url>
+      <url>https://raw.githubusercontent.com/suderio/${project.name}/blob/main/LICENSE</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
