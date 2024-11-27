@@ -14,7 +14,7 @@ public class Timeslot {
     private Long id;
     private DayOfWeek dayOfWeek;
     private MonthDay monthDay;
-    private Boolean holliday;
+    private Boolean holiday;
 
     @PlanningVariable
     private Person person;
@@ -23,11 +23,11 @@ public class Timeslot {
         
     }
 
-    public Timeslot(Long id, DayOfWeek dayOfWeek, MonthDay monthDay, Boolean holliday) {
+    public Timeslot(Long id, DayOfWeek dayOfWeek, MonthDay monthDay, Boolean holiday) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.monthDay = monthDay;
-        this.holliday = holliday;
+        this.holiday = holiday;
     }
 
     public Long getId() {
@@ -59,11 +59,11 @@ public class Timeslot {
         this.monthDay = monthDay;
     }
     
-    public Boolean getHolliday() {
-        return holliday;
+    public Boolean getHoliday() {
+        return holiday;
     }
-    public void setHolliday(Boolean holliday) {
-        this.holliday = holliday;
+    public void setHoliday(Boolean holiday) {
+        this.holiday = holiday;
     }
 
     public Integer getWorkingHours() {
@@ -71,11 +71,11 @@ public class Timeslot {
     }
 
     public Integer getHours() {
-        return this.getHolliday() || this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY ? 24 : 11;
+        return this.getHoliday() || this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY ? 24 : 12;
     }
 
     @Override
     public String toString() {
-        return "%s,%s,%s,%s".formatted(this.monthDay.getDayOfMonth(), this.dayOfWeek, this.person.getName(), this.getHours());
+        return "%s - %s (%s)".formatted(this.monthDay, this.person.getName(), this.getHours());
     }
 }

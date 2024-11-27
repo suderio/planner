@@ -1,0 +1,30 @@
+---
+name: A
+hours: 77
+unavailable: [1,5,13]
+preferred: [1,3,5,7,9]
+scheduled: []
+---
+name: H
+hours: 77
+unavailable: [1, 5, 13]
+preferred: [1,3,5,7,9]
+scheduled: []
+---
+name: M
+hours: 107
+unavailable: [1,15,3]
+preferred: [1,3,5,7,9]
+scheduled: []
+---
+name: P
+hours: 77
+unavailable: [17]
+preferred: [1,3,5,7,9]
+scheduled: []
+---
+name: T
+hours: 107
+unavailable: []
+preferred: [1,3,5,7,9]
+scheduled: []

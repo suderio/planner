@@ -1,23 +1,25 @@
 package net.technearts.planner;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Person {
 
     private String name;
     private Integer hours;
-    private List<Integer> unavailable;
+    private ArrayList<Integer> unavailable;
+    private ArrayList<Integer> preferred;
+    private ArrayList<Integer> scheduled;
 
-    private List<Integer> preferred;
     public Person() {
 
     }
 
-    public Person(String name, Integer hours, List<Integer> unavailable, List<Integer> preferred) {
+    public Person(String name, Integer hours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {
         this.name = name;
         this.hours = hours;
         this.unavailable = unavailable;
         this.preferred = preferred;
+        this.scheduled = scheduled;
     }
 
     public Integer getHours() {
@@ -36,20 +38,28 @@ public class Person {
         this.name = name;
     }
 
-    public List<Integer> getUnavailable() {
+    public ArrayList<Integer> getUnavailable() {
         return unavailable;
     }
 
-    public void setUnavailable(List<Integer> unavailable) {
+    public void setUnavailable(ArrayList<Integer> unavailable) {
         this.unavailable = unavailable;
     }
 
-    public List<Integer> getPreferred() {
+    public ArrayList<Integer> getPreferred() {
         return preferred;
     }
 
-    public void setPreferred(List<Integer> preferred) {
+    public void setPreferred(ArrayList<Integer> preferred) {
         this.preferred = preferred;
+    }
+
+    public ArrayList<Integer> getScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(ArrayList<Integer> scheduled) {
+        this.scheduled = scheduled;
     }
 
     @Override
@@ -71,5 +81,4 @@ public class Person {
         } else if (!name.equals(other.name)) return false;
         return true;
     }
-
 }

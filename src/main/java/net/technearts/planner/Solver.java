@@ -1,6 +1,5 @@
 package net.technearts.planner;
 
-import net.technearts.planner.PlannerConfig.People;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
 
@@ -14,17 +13,16 @@ import static java.util.stream.Collectors.summingInt;
 
 public final class Solver {
 
-    private final List<People> people;
+    private final List<Person> people;
     private final List<LocalDate> holidays;
     private final Integer month;
     private final Integer year;
     private TimeTable solution;
 
-    public Solver(List<People> people, String monthYear) {
+    public Solver(List<Person> people, Integer month, Integer year) {
         this.people = people;
-        Integer[] monthYearInt = Arrays.stream(monthYear.split("/")).map(Integer::parseInt).toArray(Integer[]::new);
-        month = monthYearInt[0];
-        year = monthYearInt[1];
+        this.month = month;
+        this.year = year;
         this.holidays = (new Holidays(year)).holidays();
     }
 
@@ -40,14 +38,7 @@ public final class Solver {
                     holidays.contains(date)));
             date = date.plusDays(1);
         }
-        List<Person> peopleList = people.stream().map(p -> new Person(
-                        p.name(),
-                        p.hours(),
-                        p.unavailable().isEmpty() ? Collections.emptyList() : p.unavailable().get(),
-                        p.preferred().isEmpty() ? Collections.emptyList() : p.preferred().get()))
-                .toList();
-
-        return new TimeTable(timeslotList, peopleList);
+        return new TimeTable(timeslotList, people);
     }
 
     public Solver solve(Integer limit) {
