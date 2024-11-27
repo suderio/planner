@@ -48,7 +48,7 @@ public class Holidays {
         return LocalDate.of(year, month, day);
     }
 
-    public List<LocalDate> holidays() {
+    public final List<LocalDate> holidays() {
         holidays.add(easter.minusDays(46)); // Segunda de Carnaval
         holidays.add(easter.minusDays(47)); // Terça de Carnaval
         holidays.add(easter.minusDays(2)); // Sexta da Paixão

@@ -37,18 +37,18 @@ planner:
       hours: 107
       unavailable: []
       preferred: 1,3,5,7,9
-  holidays:
-    - --01-01    # Confraternização Universal
-    - 2023-02-20 # Carnaval
-    - 2023-02-21 # Carnaval
-    - 2023-04-07 # Paixão de Cristo
-    - --04-21    # Tiradentes
-    - --05-01    # Dia do Trabalho
-    - 2023-06-08 # Corpus Christi
-    - --09-07    # Independência do Brasil
-    - --10-12    # Nossa Sr.a Aparecida - Padroeira do Brasil
-    - --11-02    # Finados
-    - --11-15    # Proclamação da República
-    - --12-25    # Natal
-    - --12-31    # Reveillon
+#  holidays:
+#    - --01-01    # Confraternização Universal
+#    - 2023-02-20 # Carnaval
+#    - 2023-02-21 # Carnaval
+#    - 2023-04-07 # Paixão de Cristo
+#    - --04-21    # Tiradentes
+#    - --05-01    # Dia do Trabalho
+#    - 2023-06-08 # Corpus Christi
+#    - --09-07    # Independência do Brasil
+#    - --10-12    # Nossa Sr.a Aparecida - Padroeira do Brasil
+#    - --11-02    # Finados
+#    - --11-15    # Proclamação da República
+#    - --12-25    # Natal
+#    - --12-31    # Reveillon
 

@@ -20,12 +20,12 @@ public final class Solver {
     private final Integer year;
     private TimeTable solution;
 
-    public Solver(List<People> people, List<LocalDate> holidays, String monthYear) {
+    public Solver(List<People> people, String monthYear) {
         this.people = people;
-        this.holidays = holidays;
         Integer[] monthYearInt = Arrays.stream(monthYear.split("/")).map(Integer::parseInt).toArray(Integer[]::new);
         month = monthYearInt[0];
         year = monthYearInt[1];
+        this.holidays = (new Holidays(year)).holidays();
     }
 
     public TimeTable generateProblemData() {

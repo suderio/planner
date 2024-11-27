@@ -50,7 +50,7 @@ public class MainCommand implements Runnable {
             Log.info("Number of people: %s".formatted(config.people().size()));
 
             // Get the solution
-            Solver solver = new Solver(config.people(), config.holidays(), monthYear);
+            Solver solver = new Solver(config.people(), monthYear);
             TimeTable solution = solver.solve(limit).getSolution();
 
             // Visualize the solution

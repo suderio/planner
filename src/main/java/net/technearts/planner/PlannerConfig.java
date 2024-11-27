@@ -13,7 +13,7 @@ public interface PlannerConfig {
 
     Weight weights();
     List<People> people();
-    List<LocalDate> holidays();
+    //List<LocalDate> holidays();
 
     interface Weight {
         Map<DayOfWeek, Integer> week();
