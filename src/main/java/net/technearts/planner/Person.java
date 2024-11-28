@@ -1,11 +1,12 @@
 package net.technearts.planner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Person {
 
     private String name;
-    private Integer hours;
+    private BigDecimal hours;
     private ArrayList<Integer> unavailable;
     private ArrayList<Integer> preferred;
     private ArrayList<Integer> scheduled;
@@ -14,7 +15,7 @@ public class Person {
 
     }
 
-    public Person(String name, Integer hours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {
+    public Person(String name, BigDecimal hours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {
         this.name = name;
         this.hours = hours;
         this.unavailable = unavailable;
@@ -22,11 +23,11 @@ public class Person {
         this.scheduled = scheduled;
     }
 
-    public Integer getHours() {
+    public BigDecimal getHours() {
         return hours;
     }
 
-    public void setHours(Integer hours) {
+    public void setHours(BigDecimal hours) {
         this.hours = hours;
     }
 

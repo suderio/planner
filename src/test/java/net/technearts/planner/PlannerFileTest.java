@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.StringWriter;
+import java.math.BigDecimal;
 
 class PlannerFileTest {
 
@@ -17,7 +18,7 @@ class PlannerFileTest {
     @Test
     void testDumpingPeople() {
 
-        Person p = new Person("Teste", 33, Lists.newArrayList(), Lists.newArrayList(), Lists.newArrayList());
+        Person p = new Person("Teste", new BigDecimal(33), Lists.newArrayList(), Lists.newArrayList(), Lists.newArrayList());
         Yaml yaml = new Yaml();
         StringWriter writer = new StringWriter();
         yaml.dump(p, writer);

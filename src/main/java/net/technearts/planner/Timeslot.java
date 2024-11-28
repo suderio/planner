@@ -1,15 +1,16 @@
 package net.technearts.planner;
 
-import java.time.DayOfWeek;
-import java.time.MonthDay;
-
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.MonthDay;
+
 @PlanningEntity
 public class Timeslot {
-    
+
     @PlanningId
     private Long id;
     private DayOfWeek dayOfWeek;
@@ -20,7 +21,7 @@ public class Timeslot {
     private Person person;
 
     public Timeslot() {
-        
+
     }
 
     public Timeslot(Long id, DayOfWeek dayOfWeek, MonthDay monthDay, Boolean holiday) {
@@ -45,33 +46,37 @@ public class Timeslot {
     public void setPerson(Person person) {
         this.person = person;
     }
+
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
+
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
-    
+
     public MonthDay getMonthDay() {
         return monthDay;
     }
+
     public void setMonthDay(MonthDay monthDay) {
         this.monthDay = monthDay;
     }
-    
+
+    public BigDecimal getWorkingHours() {
+        return this.person.getHours().add(this.getHours());
+    }
+
+    public BigDecimal getHours() {
+        return this.getHoliday() || this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY ? new BigDecimal(24) : new BigDecimal(12);
+    }
+
     public Boolean getHoliday() {
         return holiday;
     }
+
     public void setHoliday(Boolean holiday) {
         this.holiday = holiday;
-    }
-
-    public Integer getWorkingHours() {
-        return this.person.getHours() + this.getHours();
-    }
-
-    public Integer getHours() {
-        return this.getHoliday() || this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY ? 24 : 12;
     }
 
     @Override
