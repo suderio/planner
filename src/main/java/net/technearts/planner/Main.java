@@ -21,7 +21,7 @@ import static java.util.regex.Pattern.matches;
         mixinStandardHelpOptions = true,
         abbreviateSynopsis = true,
         description = "A planner for monthly allocation.")
-public class MainCommand implements Runnable {
+public class Main implements Runnable {
 
     @Option(names = {"-l", "--limit"}, defaultValue = "5", description = "Time limit in seconds")
     Integer limit;
@@ -84,10 +84,11 @@ public class MainCommand implements Runnable {
             plannerFile.dumpPeople(solution.getTimeslotList());
 
         } catch (IllegalArgumentException | DateTimeException e) {
-            Log.error("Some unknown problem with one of the arguments.");
+            Log.error("Some unknown problem with one of the arguments.", e);
             exit(1);
         } catch (ConfigurationException e) {
-            Log.error("Some unknown problem with the Config file.");
+            Log.error("Some unknown problem with the Config file.", e);
+            exit(1);
         }
     }
 }

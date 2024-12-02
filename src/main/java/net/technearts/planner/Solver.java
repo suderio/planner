@@ -32,7 +32,11 @@ public final class Solver {
 
     public Solver solve(Integer limit) {
         // Create the solver
-        SolverFactory<TimeTable> solverFactory = SolverFactory.create(new SolverConfig().withSolutionClass(TimeTable.class).withEntityClasses(Timeslot.class).withConstraintProviderClass(TimeTableConstraintProvider.class).withTerminationSpentLimit(Duration.ofSeconds(limit)));
+        SolverFactory<TimeTable> solverFactory = SolverFactory.create(new SolverConfig()
+                .withSolutionClass(TimeTable.class)
+                .withEntityClasses(Timeslot.class)
+                .withConstraintProviderClass(ConstraintProvider.class)
+                .withTerminationSpentLimit(Duration.ofSeconds(limit)));
         // Load the problem
         TimeTable problem = generateProblemData();
         // Solve the problem

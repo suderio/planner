@@ -1,13 +1,13 @@
 package net.technearts.planner;
 
-import java.util.List;
-
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.score.buildin.hardsoftbigdecimal.HardSoftBigDecimalScore;
+
+import java.util.List;
 
 @PlanningSolution
 public class TimeTable {
@@ -21,7 +21,7 @@ public class TimeTable {
     private List<Person> personList;
 
     @PlanningScore
-    private HardSoftScore score;
+    private HardSoftBigDecimalScore score;
 
     public TimeTable() {
     }
@@ -39,7 +39,7 @@ public class TimeTable {
         return personList;
     }
 
-    public HardSoftScore getScore() {
+    public HardSoftBigDecimalScore  getScore() {
         return score;
     }
 }

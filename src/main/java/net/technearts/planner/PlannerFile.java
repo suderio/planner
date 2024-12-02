@@ -74,7 +74,9 @@ public class PlannerFile {
     public void dumpTimeslots(List<Timeslot> timeslots) {
         Path path = Path.of(directory, txtFileName());
         try (var writer = new PrintWriter(newBufferedWriter(path, TRUNCATE_EXISTING, CREATE))){
-            timeslots.forEach(writer::println);
+            timeslots.stream().map(ts -> ts.toString()
+                    .replaceFirst("^\\-", this.year.toString()))
+                    .forEach(writer::println);
         } catch (IOException e) {
             Log.error("Unable to write in file %s".formatted(txtFileName()));
             System.exit(1);
