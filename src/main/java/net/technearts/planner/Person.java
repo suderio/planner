@@ -3,6 +3,7 @@ package net.technearts.planner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class Person {
 
     private String name;
@@ -12,7 +13,6 @@ public class Person {
     private ArrayList<Integer> scheduled;
 
     public Person() {
-
     }
 
     public Person(String name, BigDecimal hours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {

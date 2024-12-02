@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.MonthDay;
 
+@SuppressWarnings("unused")
 @PlanningEntity
 public class Timeslot {
 

@@ -9,13 +9,14 @@ import org.optaplanner.core.api.score.buildin.hardsoftbigdecimal.HardSoftBigDeci
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @PlanningSolution
 public class TimeTable {
-    
+
     @PlanningEntityCollectionProperty
     private List<Timeslot> timeslotList;
-    
-    
+
+
     @ValueRangeProvider
     @ProblemFactCollectionProperty
     private List<Person> personList;
@@ -39,7 +40,7 @@ public class TimeTable {
         return personList;
     }
 
-    public HardSoftBigDecimalScore  getScore() {
+    public HardSoftBigDecimalScore getScore() {
         return score;
     }
 }

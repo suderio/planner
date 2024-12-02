@@ -16,6 +16,7 @@ import java.util.List;
 import static java.lang.System.exit;
 import static java.util.regex.Pattern.matches;
 
+@SuppressWarnings("unused")
 @TopCommand
 @Command(name = "planner",
         mixinStandardHelpOptions = true,
@@ -76,7 +77,7 @@ public class Main implements Runnable {
 
             // Visualize totals per person
             if (totals) {
-                solver.getTotals().forEach((person, sum) -> System.out.printf("%s: %s%n", person.getName(), sum));
+                solver.getTotals().forEach((person, sum) ->Log.info("%s: %s%n".formatted(person.getName(), sum)));
             }
 
             // Write solutions file

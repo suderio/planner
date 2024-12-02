@@ -1,14 +1,10 @@
 package net.technearts.planner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Holidays {
-    private static final Logger log = LoggerFactory.getLogger(Holidays.class);
     private final List<LocalDate> holidays = new ArrayList<>();
     private final LocalDate easter;
 
