@@ -82,6 +82,6 @@ public class Timeslot {
 
     @Override
     public String toString() {
-        return "%s - %s (%s)".formatted(this.monthDay, this.person.getName(), this.getHours());
+        return "%s - %s (%s)".formatted(this.monthDay, this.person.getAlias(), this.getHours());
     }
 }

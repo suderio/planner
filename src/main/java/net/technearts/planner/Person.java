@@ -6,8 +6,9 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class Person {
 
-    private String name;
+    private String alias;
     private BigDecimal hours;
+    private BigDecimal workDayHours;
     private ArrayList<Integer> unavailable;
     private ArrayList<Integer> preferred;
     private ArrayList<Integer> scheduled;
@@ -15,9 +16,10 @@ public class Person {
     public Person() {
     }
 
-    public Person(String name, BigDecimal hours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {
-        this.name = name;
+    public Person(String alias, BigDecimal hours, BigDecimal workDayHours, ArrayList<Integer> unavailable, ArrayList<Integer> preferred, ArrayList<Integer> scheduled) {
+        this.alias = alias;
         this.hours = hours;
+        this.workDayHours = workDayHours;
         this.unavailable = unavailable;
         this.preferred = preferred;
         this.scheduled = scheduled;
@@ -31,12 +33,20 @@ public class Person {
         this.hours = hours;
     }
 
-    public String getName() {
-        return name;
+    public BigDecimal getWorkDayHours() {
+        return workDayHours;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWorkDayHours(BigDecimal workDayHours) {
+        this.workDayHours = workDayHours;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public ArrayList<Integer> getUnavailable() {
@@ -67,7 +77,7 @@ public class Person {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((alias == null) ? 0 : alias.hashCode());
         return result;
     }
 
@@ -77,9 +87,9 @@ public class Person {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Person other = (Person) obj;
-        if (name == null) {
-            if (other.name != null) return false;
-        } else if (!name.equals(other.name)) return false;
+        if (alias == null) {
+            if (other.alias != null) return false;
+        } else if (!alias.equals(other.alias)) return false;
         return true;
     }
 }

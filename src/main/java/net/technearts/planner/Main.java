@@ -72,7 +72,7 @@ public class Main implements Runnable {
 
             // Visualize totals per person
             if (totals != null && totals) {
-                solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getName(), sum)));
+                solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getAlias(), sum)));
             }
 
             // Visualize the solution
