@@ -2,6 +2,8 @@ package net.technearts.planner;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.config.solver.SolverConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -12,11 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.math.BigDecimal.ZERO;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
 
 
 public final class Solver {
 
+    private static final Logger log = LoggerFactory.getLogger(Solver.class);
     private final List<Person> people;
     private final List<LocalDate> holidays;
     private final Integer month;
@@ -45,7 +50,7 @@ public final class Solver {
         return this;
     }
 
-    public TimeTable generateProblemData() {
+    private TimeTable generateProblemData() {
         List<Timeslot> timeslotList = new ArrayList<>(31);
         LocalDate date = LocalDate.of(year, month, 1);
         long id = 0;
@@ -60,8 +65,18 @@ public final class Solver {
         return solution;
     }
 
+    public void updatePeople() {
+        var totals = getTotals();
+        var oldTotals = people.stream().collect(Collectors.toMap(identity(), Person::getHours));
+        var newTotals = people.stream().collect(Collectors.toMap(identity(), p -> oldTotals.get(p).add(totals.get(p))));
+        var minTotal = newTotals.values().stream().min(BigDecimal::compareTo).orElse(ZERO);
+        people.forEach(p -> newTotals.replace(p, newTotals.get(p).subtract(minTotal)));
+        solution.getTimeslotList().forEach(t -> t.getPerson().setHours(newTotals.get(t.getPerson())));
+    }
+
     public Map<Person, BigDecimal> getTotals() {
         return solution.getTimeslotList().stream()
-                .collect(groupingBy(Timeslot::getPerson, Collectors.reducing(BigDecimal.ZERO, Timeslot::getHours, BigDecimal::add)));
+                .collect(groupingBy(Timeslot::getPerson, Collectors.reducing(ZERO, Timeslot::getHours, BigDecimal::add)));
     }
+
 }

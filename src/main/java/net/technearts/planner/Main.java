@@ -18,10 +18,7 @@ import static java.util.regex.Pattern.matches;
 
 @SuppressWarnings("unused")
 @TopCommand
-@Command(name = "planner",
-        mixinStandardHelpOptions = true,
-        abbreviateSynopsis = true,
-        description = "A planner for monthly allocation.")
+@Command(name = "planner", mixinStandardHelpOptions = true, abbreviateSynopsis = true, description = "A planner for monthly allocation.")
 public class Main implements Runnable {
 
     @Option(names = {"-l", "--limit"}, defaultValue = "5", description = "Time limit in seconds")
@@ -43,10 +40,11 @@ public class Main implements Runnable {
     public void run() {
         try {
             if (!matches("\\d\\d?/\\d\\d\\d\\d", monthYear)) {
-                throw new IllegalArgumentException("MonthYear must be in the format MM/YYYY");
+                Log.error("MonthYear must be in the format MM/YYYY, not %s.".formatted(monthYear));
+                exit(1);
             }
             if (config.directory() == null || config.directory().isEmpty()) {
-                Log.info("Working directory must be set in the config (.env) file.");
+                Log.warn("Working directory must be set in the config (.env) file.");
             }
 
             Integer[] monthYearInt = Arrays.stream(monthYear.split("/")).map(Integer::parseInt).toArray(Integer[]::new);
@@ -54,43 +52,49 @@ public class Main implements Runnable {
             Integer year = monthYearInt[1];
 
             if (month < 1 || month > 12) {
-                throw new IllegalArgumentException("Month must be between 1 and 12.");
+                Log.error("Month must be between 1 and 12, not %s.".formatted(month));
+                exit(1);
             }
 
             if (year < 0) {
-                throw new IllegalArgumentException("Negative years are not supported.");
+                Log.error("Negative years (%s) are not supported.".formatted(year));
+                exit(1);
             }
-            Log.info("Working directory: %s".formatted(config.directory()));
-            PlannerFile plannerFile = new PlannerFile(config.directory(), config.prefix(), config.suffix(), month, year);
-            Log.info("Using file: %s".formatted(plannerFile.yamlFileName()));
-            Log.info("Generating file %s".formatted(plannerFile.txtFileName()));
-            List<Person> people = plannerFile.readPeople();
-            Log.info("Number of people: %s".formatted(people.size()));
-            Log.info("Time limit: %s".formatted(limit));
-
-            // Get the solution
-            Solver solver = new Solver(people, month, year);
-            TimeTable solution = solver.solve(limit).getSolution();
-
-            // Visualize the solution
-            solution.getTimeslotList().forEach(Log::info);
-
-            // Visualize totals per person
-            if (totals) {
-                solver.getTotals().forEach((person, sum) ->Log.info("%s: %s%n".formatted(person.getName(), sum)));
-            }
-
-            // Write solutions file
-            plannerFile.dumpTimeslots(solution.getTimeslotList());
-            plannerFile.dumpPeople(solution.getTimeslotList());
+            runPlanner(month, year);
 
         } catch (IllegalArgumentException | DateTimeException e) {
-            Log.error("Some unknown problem with one of the arguments.", e);
+            Log.error("Some unknown problem with arguments.", e);
             exit(1);
         } catch (ConfigurationException e) {
             Log.error("Some unknown problem with the Config file.", e);
             exit(1);
         }
+    }
+
+    private void runPlanner(Integer month, Integer year) {
+        Log.info("Working directory: %s".formatted(config.directory()));
+        PlannerFile plannerFile = new PlannerFile(config.directory(), config.prefix(), config.suffix(), month, year);
+        Log.info("Using file: %s".formatted(plannerFile.yamlFileName()));
+        Log.info("Generating file %s".formatted(plannerFile.txtFileName()));
+        List<Person> people = plannerFile.readPeople();
+        Log.info("Number of people: %s".formatted(people.size()));
+        Log.info("Time limit: %s".formatted(limit));
+
+        // Get the solution
+        Solver solver = new Solver(people, month, year);
+        TimeTable solution = solver.solve(limit).getSolution();
+
+        // Visualize the solution
+        solution.getTimeslotList().forEach(Log::info);
+
+        // Visualize totals per person
+        if (totals) {
+            solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getName(), sum)));
+        }
+
+        // Write solutions file
+        plannerFile.dumpTimeslots(solution.getTimeslotList());
+        plannerFile.dumpPeople(solution.getTimeslotList());
     }
 }
 
