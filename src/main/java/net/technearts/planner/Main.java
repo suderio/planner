@@ -11,7 +11,6 @@ import picocli.CommandLine.Parameters;
 
 import java.time.DateTimeException;
 import java.util.Arrays;
-import java.util.List;
 
 import static java.lang.System.exit;
 import static java.util.regex.Pattern.matches;
@@ -66,7 +65,18 @@ public class Main implements Runnable {
             var people = plannerFile.readPeople();
             Log.info("Number of people: %s".formatted(people.size()));
             Log.info("Time limit: %s".formatted(limit));
-            var solution = findSolution(month, year, people);
+
+            // Get the solution
+            Solver solver = new Solver(people, month, year);
+            TimeTable solution = solver.solve(limit).getSolution();
+
+            // Visualize totals per person
+            if (totals != null && totals) {
+                solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getName(), sum)));
+            }
+
+            // Visualize the solution
+            solution.getTimeslotList().forEach(Log::info);
             // Write solutions file
             plannerFile.dumpTimeslots(solution.getTimeslotList());
             plannerFile.dumpPeople(solution.getTimeslotList());
@@ -78,21 +88,6 @@ public class Main implements Runnable {
             Log.error("Some unknown problem with the Config file.", e);
             exit(1);
         }
-    }
-
-    private TimeTable findSolution(Integer month, Integer year, List<Person> people) {
-        // Get the solution
-        Solver solver = new Solver(people, month, year);
-        TimeTable solution = solver.solve(limit).getSolution();
-
-        // Visualize the solution
-        solution.getTimeslotList().forEach(Log::info);
-
-        // Visualize totals per person
-        if (totals) {
-            solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getName(), sum)));
-        }
-        return solution;
     }
 }
 
