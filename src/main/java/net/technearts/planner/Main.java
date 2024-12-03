@@ -60,7 +60,16 @@ public class Main implements Runnable {
                 Log.error("Negative years (%s) are not supported.".formatted(year));
                 exit(1);
             }
-            runPlanner(month, year);
+            var plannerFile = new PlannerFile(config.directory(), config.prefix(), config.suffix(), month, year);
+            Log.info("Using file: %s".formatted(plannerFile.yamlFileName()));
+            Log.info("Generating file %s".formatted(plannerFile.txtFileName()));
+            var people = plannerFile.readPeople();
+            Log.info("Number of people: %s".formatted(people.size()));
+            Log.info("Time limit: %s".formatted(limit));
+            var solution = findSolution(month, year, people);
+            // Write solutions file
+            plannerFile.dumpTimeslots(solution.getTimeslotList());
+            plannerFile.dumpPeople(solution.getTimeslotList());
 
         } catch (IllegalArgumentException | DateTimeException e) {
             Log.error("Some unknown problem with arguments.", e);
@@ -71,15 +80,7 @@ public class Main implements Runnable {
         }
     }
 
-    private void runPlanner(Integer month, Integer year) {
-        Log.info("Working directory: %s".formatted(config.directory()));
-        PlannerFile plannerFile = new PlannerFile(config.directory(), config.prefix(), config.suffix(), month, year);
-        Log.info("Using file: %s".formatted(plannerFile.yamlFileName()));
-        Log.info("Generating file %s".formatted(plannerFile.txtFileName()));
-        List<Person> people = plannerFile.readPeople();
-        Log.info("Number of people: %s".formatted(people.size()));
-        Log.info("Time limit: %s".formatted(limit));
-
+    private TimeTable findSolution(Integer month, Integer year, List<Person> people) {
         // Get the solution
         Solver solver = new Solver(people, month, year);
         TimeTable solution = solver.solve(limit).getSolution();
@@ -91,10 +92,7 @@ public class Main implements Runnable {
         if (totals) {
             solver.getTotals().forEach((person, sum) -> Log.info("%s: %s%n".formatted(person.getName(), sum)));
         }
-
-        // Write solutions file
-        plannerFile.dumpTimeslots(solution.getTimeslotList());
-        plannerFile.dumpPeople(solution.getTimeslotList());
+        return solution;
     }
 }
 
